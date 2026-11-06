@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum OrderStatus {
+  PENDING
+  APPROVED
+  FAILED
+  CANCELLED
+  REFUNDED
+}
+
+model Product {
+  id          String           @id @default(cuid())
+  slug        String           @unique
+  name        String
+  description String
+  fabric      String
+  category    String
+  imageUrl    String
+  price       Decimal          @db.Decimal(10, 2)
+  active      Boolean          @default(true)
+  variants    ProductVariant[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model ProductVariant {
+  id        String   @id @default(cuid())
+  sku       String   @unique
+  size      String
+  color     String
+  stock     Int      @default(0)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([productId, size, color])
+}
+
+model Coupon {
+  code            String   @id
+  discountPercent Int
+  active          Boolean  @default(true)
+  createdAt       DateTime @default(now())
+}
+
+model Order {
+  id                   String      @id @default(cuid())
+  checkoutKey          String      @unique
+  status               OrderStatus @default(PENDING)
+  email                String
+  postalCode           String
+  fullName             String
+  addressNumber        String
+  street               String
+  neighborhood          String
+  city                 String
+  state                String
+  subtotal             Decimal     @db.Decimal(10, 2)
+  discount             Decimal     @db.Decimal(10, 2)
+  shipping             Decimal     @db.Decimal(10, 2)
+  total                Decimal     @db.Decimal(10, 2)
+  couponCode           String?
+  paymentMethod        String
+  providerPaymentId    String?     @unique
+  providerStatus       String?
+  paymentInfo          Json?
+  items                Json
+  stockReleasedAt      DateTime?
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+  paymentEvents        PaymentEvent[]
+
+  @@index([status, createdAt])
+}
+
+model PaymentEvent {
+  id                 String   @id @default(cuid())
+  providerRequestId   String   @unique
+  providerPaymentId   String
+  providerStatus      String
+  orderId             String
+  order               Order    @relation(fields: [orderId], references: [id], onDelete: Restrict)
+  createdAt           DateTime @default(now())
+
+  @@unique([providerPaymentId, providerStatus])
+  @@index([orderId])
+}
