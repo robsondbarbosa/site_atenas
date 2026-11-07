@@ -22,7 +22,13 @@ model Product {
   fabric      String
   category    String
   imageUrl    String
+  images      String[]         @default([])
   price       Decimal          @db.Decimal(10, 2)
+  compareAt   Decimal?         @db.Decimal(10, 2)
+  badge       String?
+  rating      Decimal          @default(5.0) @db.Decimal(2, 1)
+  reviews     Int              @default(0)
+  skuPrefix   String           @default("")
   active      Boolean          @default(true)
   variants    ProductVariant[]
   createdAt   DateTime         @default(now())
@@ -34,6 +40,9 @@ model ProductVariant {
   sku       String   @unique
   size      String
   color     String
+  colorCode String   @default("")
+  colorHex  String   @default("#191919")
+  active    Boolean  @default(true)
   stock     Int      @default(0)
   productId String
   product   Product  @relation(fields: [productId], references: [id], onDelete: Restrict)

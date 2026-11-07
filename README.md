@@ -1,4 +1,4 @@
-# Atenas Fit
+# Atenas Fitness
 
 Loja virtual mobile-first de moda fitness e acessórios. O storefront usa Next.js App Router, TypeScript e Tailwind CSS; a API server-side usa PostgreSQL com Prisma e Mercado Pago.
 
@@ -45,11 +45,17 @@ Prisma 7 usa o adaptador PostgreSQL `@prisma/adapter-pg`; para migrações locai
 
 Os valores de exemplo não incluem credenciais: configure os nomes acima no ambiente apropriado. Não coloque tokens privados em `NEXT_PUBLIC_*`, arquivos versionados ou logs. O webhook cadastrado no Mercado Pago deve apontar para `/api/webhooks/mercadopago` e usar o mesmo segredo configurado como `MP_WEBHOOK_SECRET`.
 
+## Painel administrativo
+
+O painel fica em `/admin`. Configure `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `NEXT_PUBLIC_VERDENT_OAUTH_INITIATE_URL` e `ADMIN_EMAIL` (`atenasmodafitness@gmail.com`) no ambiente de execução. A pessoa administradora cria sua própria conta, confirma o e-mail e entra pelo botão de login; qualquer outra conta é bloqueada no servidor. A política do bucket de imagens também permite alterações somente para esse mesmo e-mail.
+
+Antes de usar o painel, aplique a migration aditiva `prisma/migrations/0002_catalog_admin/migration.sql` ao PostgreSQL da loja com `npm run db:migrate`. Ela adiciona campos de catálogo e status de variação sem remover registros. A migration Supabase `admin_product_media` cria o bucket público para leitura e restringe escrita à administradora. Defina os campos Supabase e `ADMIN_EMAIL` no ambiente de hospedagem antes do primeiro acesso.
+
 ## Estrutura
 
-- `src/app`: páginas de início, catálogo, produto, checkout, SEO, frete, cupons, pagamentos e webhook.
-- `src/components`: navegação, sacola lateral, cards, filtros e experiência de compra.
-- `src/lib`: catálogo de demonstração, acesso ao Prisma, validação do provedor e cotação de frete.
+- `src/app`: páginas de início, catálogo, produto, checkout, painel administrativo, SEO, frete, cupons, pagamentos e webhook.
+- `src/components`: navegação, sacola lateral, cards, filtros, checkout e painel administrativo.
+- `src/lib`: consultas do catálogo no banco, autorização administrativa, acesso ao Prisma, validação do provedor e cotação de frete.
 - `prisma/schema.prisma` e `prisma/migrations`: catálogo, variantes/estoque, cupons, pedidos e idempotência de eventos.
 
 ## Antes de uma operação comercial

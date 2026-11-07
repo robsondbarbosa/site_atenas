@@ -10,13 +10,13 @@ async function main() {
   for (const product of products) {
     const savedProduct = await prisma.product.upsert({
       where: { slug: product.slug },
-      update: { name: product.name, description: product.description, fabric: product.fabric, category: product.category, imageUrl: product.image, price: product.price, active: true },
-      create: { slug: product.slug, name: product.name, description: product.description, fabric: product.fabric, category: product.category, imageUrl: product.image, price: product.price },
+      update: { name: product.name, description: product.description, fabric: product.fabric, category: product.category, imageUrl: product.image, images: product.images ?? [product.image], price: product.price, compareAt: product.compareAt ?? null, badge: product.badge ?? null, rating: product.rating, reviews: product.reviews, skuPrefix: product.skuPrefix, active: true },
+      create: { slug: product.slug, name: product.name, description: product.description, fabric: product.fabric, category: product.category, imageUrl: product.image, images: product.images ?? [product.image], price: product.price, compareAt: product.compareAt ?? null, badge: product.badge ?? null, rating: product.rating, reviews: product.reviews, skuPrefix: product.skuPrefix },
     });
     for (const color of product.colors) {
       for (const size of product.sizes) {
         const sku = `${product.skuPrefix}-${color.code}-${size}`.toUpperCase();
-        await prisma.productVariant.upsert({ where: { sku }, update: { size, color: color.name, productId: savedProduct.id }, create: { sku, size, color: color.name, productId: savedProduct.id, stock: 20 } });
+        await prisma.productVariant.upsert({ where: { sku }, update: { size, color: color.name, colorCode: color.code, colorHex: color.hex, active: true, productId: savedProduct.id }, create: { sku, size, color: color.name, colorCode: color.code, colorHex: color.hex, productId: savedProduct.id, stock: 20 } });
       }
     }
   }

@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     }
 
     for (const item of input.items) {
-      const variant = await prisma.productVariant.findFirst({ where: { size: item.size, color: item.color, product: { slug: item.slug, active: true } }, include: { product: { select: { id: true, name: true, price: true } } } });
+      const variant = await prisma.productVariant.findFirst({ where: { size: item.size, color: item.color, active: true, product: { slug: item.slug, active: true } }, include: { product: { select: { id: true, name: true, price: true } } } });
       if (!variant) return NextResponse.json({ error: `A variação selecionada não está disponível: ${item.size} · ${item.color}.` }, { status: 409 });
       reservedLines.push({ variantId: variant.id, sku: variant.sku, name: variant.product.name, size: variant.size, color: variant.color, quantity: item.quantity, unitPriceCents: Math.round(Number(variant.product.price) * 100) });
     }

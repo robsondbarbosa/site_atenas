@@ -1,8 +1,11 @@
 import type { MetadataRoute } from "next";
-import { products } from "@/lib/catalog";
+import { connection } from "next/server";
+import { getStoreProducts } from "@/lib/store-products";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  await connection();
   const baseUrl = process.env.APP_BASE_URL ?? "https://atenasfitness.com.br";
+  const products = await getStoreProducts();
   return [
     { url: new URL("/", baseUrl).toString(), changeFrequency: "weekly", priority: 1 },
     { url: new URL("/catalogo", baseUrl).toString(), changeFrequency: "daily", priority: 0.8 },

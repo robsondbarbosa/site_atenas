@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { products, trainingImageUrl } from "@/lib/catalog";
+import { trainingImageUrl, type StoreProduct } from "@/lib/catalog";
 import { ProductCard } from "@/components/product-card";
 
 const categories = [
@@ -11,7 +11,7 @@ const categories = [
   { name: "Acessórios", description: "Os detalhes que movem", image: "/products/look-plum.jpg", href: "/catalogo?categoria=Acessórios", className: "" },
 ];
 
-export default function StoreHome() {
+export default function StoreHome({ products }: { products: StoreProduct[] }) {
   return <main>
     <section className="hero-section">
       <div className="hero-copy"><span className="eyebrow"><i /> NOVA COLEÇÃO · ESSENCIAL</span><h1>Força para<br />ir <em>além.</em></h1><p>Performance que acompanha o seu ritmo. Vista seu propósito com Atenas Fitness.</p><div className="hero-actions"><Link className="button button-gold" href="/catalogo">DESCUBRA A COLEÇÃO <span>↗</span></Link><span className="hero-note">DESDE O PRIMEIRO MOVIMENTO.</span></div><div className="hero-footnote"><span>01 / 03</span><div><i /></div><span>INSPIRADA NA SUA FORÇA</span></div></div>

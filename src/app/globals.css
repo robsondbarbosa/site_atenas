@@ -42,6 +42,9 @@ img { display: block; max-width: 100%; }
 .site-footer div { display: flex; justify-content: center; gap: 30px; margin-bottom: 38px; }
 .site-footer div a { color: #d6d1c5; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
 .site-footer small { color: #817d74; font-size: 9px; letter-spacing: .09em; }
+.whatsapp-float { width: 58px; height: 58px; display: grid; place-items: center; position: fixed; right: 24px; bottom: 24px; z-index: 30; border-radius: 50%; background: #25d366; color: #fff; box-shadow: 0 5px 18px rgba(0, 0, 0, .24); transition: transform .2s, background .2s; }
+.whatsapp-float:hover { transform: translateY(-3px); background: #1fbd5b; }
+.whatsapp-float svg { width: 32px; height: 32px; fill: currentColor; }
 
 .hero-section { min-height: 590px; display: grid; grid-template-columns: .92fr 1.08fr; position: relative; overflow: hidden; background: #eeece5; }
 .hero-copy { min-height: 590px; display: flex; flex-direction: column; justify-content: center; padding: 66px 7vw 68px 12vw; position: relative; z-index: 2; }
@@ -153,6 +156,62 @@ img { display: block; max-width: 100%; }
 .newsletter-section input { min-width: 0; flex: 1; padding: 13px 4px; border: 0; outline: none; background: transparent; color: #282720; font-size: 11px; }
 .newsletter-section form button { width: 48px; border: 0; background: transparent; color: #8d7431; cursor: pointer; font-size: 20px; }
 .newsletter-section > small { margin-top: 11px; color: #908b80; font-size: 8px; }
+
+.admin-page { min-height: 72vh; padding: 64px clamp(20px, 6vw, 84px) 90px; background: #eeece5; }
+.admin-login { width: min(480px, 100%); display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin: 60px auto; padding: clamp(26px, 5vw, 48px); border: 1px solid #ddd8cd; background: #faf9f6; box-shadow: 0 18px 45px rgba(34, 31, 23, .06); }
+.admin-login h1, .admin-heading h1 { margin: 0; font-size: clamp(36px, 5vw, 58px); letter-spacing: -.07em; line-height: .98; }
+.admin-login h1 em, .admin-heading h1 em { color: #a88b36; font-family: Georgia, serif; font-weight: 400; }
+.admin-login > p, .admin-heading p { margin: 0; color: #77746d; font-family: Georgia, serif; font-size: 13px; line-height: 1.6; }
+.admin-login small { color: #868175; font-size: 9px; }
+.admin-status { padding: 100px 0; color: #77746d; text-align: center; }
+.admin-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin: 0 auto 30px; }
+.admin-heading > div { display: grid; gap: 12px; }
+.admin-layout { display: grid; grid-template-columns: minmax(270px, .72fr) minmax(480px, 1.28fr); align-items: start; gap: 20px; }
+.admin-panel { min-width: 0; padding: clamp(20px, 3vw, 30px); border: 1px solid #ddd8cd; background: #faf9f6; }
+.admin-panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; }
+.admin-panel-heading h2 { margin: 6px 0 0; font-family: Georgia, serif; font-size: 22px; font-weight: 400; }
+.admin-panel-heading .button { min-height: 40px; padding: 0 13px; gap: 10px; font-size: 8px; }
+.admin-product-list { display: grid; }
+.admin-product { display: grid; grid-template-columns: 55px minmax(0, 1fr); gap: 12px; padding: 14px 0; border-top: 1px solid #e3dfd6; }
+.admin-product > img { width: 55px; height: 67px; object-fit: cover; background: #e9e6df; }
+.admin-product-info { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.admin-product-info strong { font-size: 11px; }
+.admin-product-info span { overflow: hidden; color: #8a857a; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+.admin-product-info small { color: #6e695f; font-size: 8px; }
+.admin-product-actions { grid-column: 2; display: flex; gap: 14px; }
+.admin-product-actions button, .admin-add-variant { padding: 0; border: 0; background: transparent; color: #76652f; cursor: pointer; font-size: 8px; font-weight: 700; letter-spacing: .08em; }
+.admin-product.inactive { opacity: .56; }
+.admin-empty { padding: 20px 0; color: #77746d; font-size: 11px; line-height: 1.6; }
+.admin-form { display: grid; gap: 21px; }
+.admin-form .admin-panel-heading { margin-bottom: 0; }
+.admin-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+.admin-fields label, .admin-variant label { display: flex; flex-direction: column; gap: 6px; color: #565249; font-size: 9px; font-weight: 600; }
+.admin-fields input, .admin-fields select, .admin-fields textarea, .admin-variant input { width: 100%; min-width: 0; min-height: 38px; padding: 8px 10px; border: 1px solid #d8d4ca; border-radius: 0; background: #fff; color: #27251f; font-size: 10px; font-weight: 400; }
+.admin-fields textarea { resize: vertical; line-height: 1.5; }
+.admin-field-wide { grid-column: 1 / -1; }
+.admin-upload, .admin-variants-heading { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding-top: 16px; border-top: 1px solid #e3dfd6; }
+.admin-upload > div, .admin-variants-heading > div { display: flex; flex-direction: column; gap: 5px; }
+.admin-upload strong, .admin-variants-heading strong { font-size: 10px; }
+.admin-upload small, .admin-variants-heading small { color: #827d72; font-size: 8px; }
+.admin-upload-button { position: relative; padding: 10px 12px; background: #201f1b; color: #fff; cursor: pointer; font-size: 8px; font-weight: 700; letter-spacing: .08em; white-space: nowrap; }
+.admin-upload-button input { width: 1px; height: 1px; position: absolute; opacity: 0; }
+.admin-image-list { display: flex; flex-wrap: wrap; gap: 9px; }
+.admin-image-list > div { width: 67px; height: 82px; position: relative; background: #e9e6df; }
+.admin-image-list img { width: 100%; height: 100%; object-fit: cover; }
+.admin-image-list button { width: 20px; height: 20px; display: grid; place-items: center; position: absolute; top: -6px; right: -6px; border: 0; border-radius: 50%; background: #211f1a; color: white; cursor: pointer; font-size: 14px; }
+.admin-add-variant { white-space: nowrap; }
+.admin-variants { display: grid; gap: 10px; }
+.admin-variant { display: grid; grid-template-columns: 1fr 1.3fr .8fr 55px .7fr 24px; align-items: end; gap: 7px; }
+.admin-variant label { font-size: 8px; }
+.admin-variant input { min-height: 34px; padding: 6px; font-size: 9px; }
+.admin-variant input[type="color"] { padding: 3px; }
+.admin-variant > button { width: 24px; height: 34px; border: 1px solid #d8d4ca; background: transparent; cursor: pointer; font-size: 15px; }
+.admin-variant > button:disabled { opacity: .35; cursor: not-allowed; }
+.admin-form-actions { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
+.admin-secondary { min-height: 40px; padding: 0 14px; border: 1px solid #d8d4ca; background: transparent; color: #575349; cursor: pointer; font-size: 8px; font-weight: 700; letter-spacing: .08em; }
+.admin-error, .admin-notice { grid-column: 1 / -1; margin: 0; padding: 11px 13px; font-size: 10px; line-height: 1.5; }
+.admin-error { background: #f5e8e4; color: #933d35; }
+.admin-notice { background: #e7efe5; color: #3c673c; }
 
 .breadcrumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: #89847a; font-size: 9px; letter-spacing: .05em; }
 .breadcrumbs a:hover { color: #a88b36; }
@@ -371,6 +430,7 @@ img { display: block; max-width: 100%; }
 .payment-pending-note { margin-top: 20px; color: #878277; font-size: 9px; line-height: 1.6; }
 
 @media (max-width: 1000px) {
+  .admin-layout { grid-template-columns: 1fr; }
   .site-header { gap: 19px; padding: 0 28px; }
   .brand { width: 128px; }
   .main-nav { gap: 18px; }
@@ -387,6 +447,16 @@ img { display: block; max-width: 100%; }
 }
 
 @media (max-width: 720px) {
+  .admin-page { padding: 38px 15px 55px; }
+  .admin-heading { align-items: flex-start; }
+  .admin-panel { padding: 17px; }
+  .admin-fields { grid-template-columns: 1fr; }
+  .admin-field-wide { grid-column: auto; }
+  .admin-variant { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 12px 0; border-top: 1px solid #e3dfd6; }
+  .admin-variant > button { grid-column: 2; justify-self: end; }
+  .admin-upload, .admin-variants-heading { align-items: flex-start; }
+  .admin-form-actions .button { gap: 8px; padding: 0 11px; font-size: 7px; }
+  .admin-login { margin: 32px auto; }
   .announcement { min-height: 25px; font-size: 7px; letter-spacing: .12em; }
   .site-header { height: auto; min-height: 70px; flex-wrap: wrap; gap: 0; padding: 10px 17px 0; }
   .brand { width: 119px; }
