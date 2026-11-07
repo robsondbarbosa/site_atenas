@@ -3,7 +3,11 @@ import { PrismaClient } from "@prisma/client";
 import { Pool } from "pg";
 import { products } from "../src/lib/catalog";
 
-const pool = new Pool({ connectionString: process.env.POSTGRES_URL });
+const databaseUrl = process.env.POSTGRES_URL ? new URL(process.env.POSTGRES_URL) : undefined;
+if (databaseUrl?.searchParams.get("sslmode")?.toLowerCase() === "require" && !databaseUrl.searchParams.has("uselibpqcompat")) {
+  databaseUrl.searchParams.set("uselibpqcompat", "true");
+}
+const pool = new Pool({ connectionString: databaseUrl?.toString() });
 const prisma = new PrismaClient({ adapter: new PrismaPg(pool) });
 
 async function main() {
